@@ -1,0 +1,357 @@
+version: 6
+version_hash: hP6PhXF1tZsKim745+FU0D05/qeJMz+dSNF8hqioLqg=
+engine_version: 10
+name: fpl_source
+tables:
+  _dlt_version:
+    columns:
+      version:
+        data_type: bigint
+        nullable: false
+      engine_version:
+        data_type: bigint
+        nullable: false
+      inserted_at:
+        data_type: timestamp
+        nullable: false
+      schema_name:
+        data_type: text
+        nullable: false
+      version_hash:
+        data_type: text
+        nullable: false
+      schema:
+        data_type: text
+        nullable: false
+    write_disposition: skip
+    resource: _dlt_version
+    description: Created by DLT. Tracks schema updates
+  _dlt_loads:
+    columns:
+      load_id:
+        data_type: text
+        nullable: false
+      schema_name:
+        data_type: text
+        nullable: true
+      status:
+        data_type: bigint
+        nullable: false
+      inserted_at:
+        data_type: timestamp
+        nullable: false
+      schema_version_hash:
+        data_type: text
+        nullable: true
+    write_disposition: skip
+    resource: _dlt_loads
+    description: Created by DLT. Tracks completed loads
+  events:
+    columns:
+      id:
+        data_type: bigint
+        nullable: true
+      name:
+        data_type: text
+        nullable: true
+      deadline_time:
+        data_type: timestamp
+        nullable: true
+      average_entry_score:
+        data_type: bigint
+        nullable: true
+      finished:
+        data_type: bool
+        nullable: true
+      data_checked:
+        data_type: bool
+        nullable: true
+      highest_scoring_entry:
+        data_type: bigint
+        nullable: true
+      deadline_time_epoch:
+        data_type: bigint
+        nullable: true
+      deadline_time_game_offset:
+        data_type: bigint
+        nullable: true
+      highest_score:
+        data_type: bigint
+        nullable: true
+      is_previous:
+        data_type: bool
+        nullable: true
+      is_current:
+        data_type: bool
+        nullable: true
+      is_next:
+        data_type: bool
+        nullable: true
+      cup_leagues_created:
+        data_type: bool
+        nullable: true
+      h2h_ko_matches_created:
+        data_type: bool
+        nullable: true
+      ranked_count:
+        data_type: bigint
+        nullable: true
+      most_selected:
+        data_type: bigint
+        nullable: true
+      most_transferred_in:
+        data_type: bigint
+        nullable: true
+      top_element:
+        data_type: bigint
+        nullable: true
+      top_element_info__id:
+        data_type: bigint
+        nullable: true
+      top_element_info__points:
+        data_type: bigint
+        nullable: true
+      transfers_made:
+        data_type: bigint
+        nullable: true
+      most_captained:
+        data_type: bigint
+        nullable: true
+      most_vice_captained:
+        data_type: bigint
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: events
+  league_ids:
+    columns:
+      league_id:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: league_ids
+  history:
+    columns:
+      event:
+        data_type: bigint
+        nullable: true
+      points:
+        data_type: bigint
+        nullable: true
+      total_points:
+        data_type: bigint
+        nullable: true
+      rank:
+        data_type: bigint
+        nullable: true
+      rank_sort:
+        data_type: bigint
+        nullable: true
+      overall_rank:
+        data_type: bigint
+        nullable: true
+      percentile_rank:
+        data_type: bigint
+        nullable: true
+      bank:
+        data_type: bigint
+        nullable: true
+      value:
+        data_type: bigint
+        nullable: true
+      event_transfers:
+        data_type: bigint
+        nullable: true
+      event_transfers_cost:
+        data_type: bigint
+        nullable: true
+      points_on_bench:
+        data_type: bigint
+        nullable: true
+      _standings_entry:
+        data_type: bigint
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: history
+  standings:
+    columns:
+      id:
+        data_type: bigint
+        nullable: true
+      event_total:
+        data_type: bigint
+        nullable: true
+      player_name:
+        data_type: text
+        nullable: true
+      rank:
+        data_type: bigint
+        nullable: true
+      last_rank:
+        data_type: bigint
+        nullable: true
+      rank_sort:
+        data_type: bigint
+        nullable: true
+      total:
+        data_type: bigint
+        nullable: true
+      entry:
+        data_type: bigint
+        nullable: true
+      entry_name:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    resource: standings
+  _dlt_pipeline_state:
+    columns:
+      version:
+        data_type: bigint
+        nullable: false
+      engine_version:
+        data_type: bigint
+        nullable: false
+      pipeline_name:
+        data_type: text
+        nullable: false
+      state:
+        data_type: text
+        nullable: false
+      created_at:
+        data_type: timestamp
+        nullable: false
+      version_hash:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: append
+    file_format: preferred
+    resource: _dlt_pipeline_state
+  events__chip_plays:
+    columns:
+      chip_name:
+        data_type: text
+        nullable: true
+      num_played:
+        data_type: bigint
+        nullable: true
+      _dlt_parent_id:
+        data_type: text
+        nullable: false
+        parent_key: true
+      _dlt_list_idx:
+        data_type: bigint
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    parent: events
+  picks:
+    columns:
+      entry:
+        data_type: bigint
+        nullable: true
+      element_in:
+        data_type: bigint
+        nullable: true
+      element_out:
+        data_type: bigint
+        nullable: true
+      event:
+        data_type: bigint
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      element:
+        data_type: bigint
+        nullable: true
+      position:
+        data_type: bigint
+        nullable: true
+      multiplier:
+        data_type: bigint
+        nullable: true
+      is_captain:
+        data_type: bool
+        nullable: true
+      is_vice_captain:
+        data_type: bool
+        nullable: true
+    write_disposition: replace
+    resource: picks
+settings:
+  detections:
+  - iso_timestamp
+  default_hints:
+    not_null:
+    - _dlt_id
+    - _dlt_root_id
+    - _dlt_parent_id
+    - _dlt_list_idx
+    - _dlt_load_id
+    parent_key:
+    - _dlt_parent_id
+    root_key:
+    - _dlt_root_id
+    unique:
+    - _dlt_id
+    row_key:
+    - _dlt_id
+normalizers:
+  names: snake_case
+  json:
+    module: dlt.common.normalizers.json.relational
+previous_hashes:
+- MtIIzTcA2re61wGIGSpwmWvY2TpNOwGc8U8+qbEMPZI=
+- 9dM/CN3WOq9nkKLnWOBSHUaxZjDBQVRFuNDkNHerx5s=
+- /E7I0pdZDcH59POwsqRCQDu3Oa12aB+sO5v+nKrwU58=
+- MfByEhgBFrXjhHvmbQxEITcRBY/j3/Kxf7vg4sz3XgI=
+- /4adw3hyIe+Bn0zGAp/XGMORNYxm6uJBnabGjacqcEQ=
+- As0XVvP9NmNcfKwsSZN9Pe061lg9KfYilL4fol6HxeY=

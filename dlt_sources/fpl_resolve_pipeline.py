@@ -97,14 +97,3 @@ pipeline = dlt.pipeline(
     dataset_name="fpl_data",
     dev_mode=True,
 )
-
-load_info = pipeline.run(
-    [
-        fpl_source(),
-    ]
-)
-print(load_info)  # noqa: T201
-
-
-# @dlt.resource(table_name=lambda event: event["events"])
-# def load_events():

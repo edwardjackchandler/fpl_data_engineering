@@ -13,7 +13,6 @@ from dlt_sources.fpl_resolve_pipeline import fpl_source
         pipeline_name="fpl",
         destination="duckdb",
         dataset_name="fpl_data",
-        dev_mode=True,
     ),
     name="fpl",
     group_name="fpl",

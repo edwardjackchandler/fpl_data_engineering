@@ -1,4 +1,5 @@
 dagster
 dagster-dlt
 dagster-duckdb
+dagster-webserver
 duckdb

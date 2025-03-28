@@ -27,6 +27,7 @@ def fpl_source():
         "resources": [
             {
                 "name": "standings",
+                "write_disposition": "merge",
                 "endpoint": {
                     "path": "leagues-classic/{league_id}/standings/",
                     "params": {
@@ -41,6 +42,8 @@ def fpl_source():
             },
             {
                 "name": "history",
+                "write_disposition": "append",  # Incremental append
+                "primary_key": ["_standings_entry", "event"],  # Prevent duplicates
                 "endpoint": {
                     "path": "entry/{entry_id}/history/",
                     "params": {
@@ -56,6 +59,7 @@ def fpl_source():
             },
             {
                 "name": "events",
+                "write_disposition": "replace",
                 "endpoint": {
                     "path": "bootstrap-static/",
                     "data_selector": "events",
@@ -63,6 +67,7 @@ def fpl_source():
             },
             {
                 "name": "picks",
+                "write_disposition": "append",
                 "endpoint": {
                     "path": "entry/{entry_id}/event/{event_id}/picks/",
                     "params": {
@@ -81,6 +86,29 @@ def fpl_source():
                 },
                 "include_from_parent": ["_standings_entry", "event"],
             },
+            {
+                "name": "players",
+                "write_disposition": "replace",  # Complete replacement
+                "endpoint": {
+                    "path": "bootstrap-static/",
+                    "data_selector": "elements",
+                },
+            },
+            {
+                "name": "player_details",
+                "write_disposition": "replace",
+                "endpoint": {
+                    "path": "element-summary/{element_id}/",
+                    "params": {
+                        "element_id": {
+                            "type": "resolve",
+                            "resource": "players",
+                            "field": "id",
+                        },
+                    },
+                },
+                "include_from_parent": ["id", "web_name"],
+            },
             league_ids(),
         ],
     }
@@ -88,12 +116,12 @@ def fpl_source():
     yield from rest_api_resources(config)
 
 
-# Create a pipeline and run it
-pipeline = dlt.pipeline(
-    import_schema_path="schemas/import",
-    export_schema_path="schemas/export",
-    pipeline_name="fpl",
-    destination="duckdb",
-    dataset_name="fpl_data",
-    dev_mode=True,
-)
+# # Create a pipeline and run it
+# pipeline = dlt.pipeline(
+#     import_schema_path="schemas/import",
+#     export_schema_path="schemas/export",
+#     pipeline_name="fpl",
+#     destination="duckdb",
+#     dataset_name="fpl_data",
+#     dev_mode=True,
+# )
